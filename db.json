@@ -1,4 +1,18 @@
 {
+  "users": [
+    {
+      "id": 1,
+      "username": "shinobi",
+      "email": "t281391@gmail.com",
+      "password": "test123"
+    },
+    {
+      "id": 2,
+      "username": "narangoo",
+      "email": "admin@example.com",
+      "password": "admin123"
+    }
+  ],
   "tasks": [
     {
       "id": 1,

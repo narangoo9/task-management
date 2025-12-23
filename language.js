@@ -6,6 +6,7 @@ const translations = {
         dashboard: "Хяналтын Самбар",
         tracking: "Хянах",
         projects: "Төслүүд",
+        deleted: "Устгасан",
         workHistory: "Ажлын Түүх",
         inbox: "Ирэх Хайрцаг",
         settings: "Тохиргоо",
@@ -122,6 +123,7 @@ const translations = {
         dashboard: "Dashboard",
         tracking: "Tracking",
         projects: "Projects",
+        deleted: "Completed",
         workHistory: "Work History",
         inbox: "Inbox",
         settings: "Settings",
@@ -254,24 +256,35 @@ function changeLanguage(lang) {
 function updateAllTexts() {
     
     const navItems = document.querySelectorAll('.nav-item span');
-    if (navItems.length >= 4) {
+    if (navItems.length >= 3) {
         navItems[0].textContent = t('dashboard');
         navItems[1].textContent = t('tracking');
-        navItems[2].textContent = t('projects');
-        navItems[3].textContent = t('workHistory');
+        if (navItems.length >= 3) {
+            navItems[2].textContent = t('deleted');
+        }
+        if (navItems.length >= 4) {
+            navItems[3].textContent = t('workHistory');
+        }
     }
     
     
     const toolsTitle = document.querySelector('.tools-section h3');
     if (toolsTitle) toolsTitle.textContent = t('tools');
     
-    const inboxNav = document.querySelector('.tools-section .nav-item span');
-    if (inboxNav && inboxNav.textContent.includes('Ирэх') || inboxNav.textContent.includes('Inbox')) {
-        inboxNav.textContent = t('inbox');
+    // Backup buttons
+    const backupBtn = document.getElementById('backupBtn');
+    if (backupBtn) {
+        const icon = backupBtn.querySelector('i');
+        const span = backupBtn.querySelector('span');
+        if (span) span.textContent = t('backup');
     }
     
-    const settingsNav = document.querySelectorAll('.tools-section .nav-item span')[1];
-    if (settingsNav) settingsNav.textContent = t('settings');
+    const restoreBtn = document.getElementById('restoreBtn');
+    if (restoreBtn) {
+        const icon = restoreBtn.querySelector('i');
+        const span = restoreBtn.querySelector('span');
+        if (span) span.textContent = t('restore');
+    }
     
     
     const addTaskBtn = document.getElementById('addTaskBtn');

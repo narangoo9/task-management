@@ -243,11 +243,11 @@ function initializeCurrencyChart() {
                         e.native.target.style.cursor = 'pointer';
                     },
                     onClick: function(e, legendItem) {
+                        if (!this || !this.getDatasetMeta) return;
                         const index = legendItem.datasetIndex;
-                        const chart = this.chart;
-                        const meta = chart.getDatasetMeta(index);
-                        meta.hidden = meta.hidden === null ? !chart.data.datasets[index].hidden : null;
-                        chart.update();
+                        const meta = this.getDatasetMeta(index);
+                        meta.hidden = meta.hidden === null ? !this.data.datasets[index].hidden : null;
+                        this.update();
                     }
                 },
                 tooltip: {
@@ -318,17 +318,17 @@ function initializeCurrencyChart() {
                 intersect: false
             },
             onHover: function(event, activeElements) {
-                const chart = this.chart;
+                if (!this || !this.update) return;
                 if (activeElements.length > 0) {
                     const newHoveredIndex = activeElements[0].datasetIndex;
                     if (hoveredDatasetIndex !== newHoveredIndex) {
                         hoveredDatasetIndex = newHoveredIndex;
-                        chart.update('none');
+                        this.update('none');
                     }
                 } else {
                     if (hoveredDatasetIndex !== -1) {
                         hoveredDatasetIndex = -1;
-                        chart.update('none');
+                        this.update('none');
                     }
                 }
             }
@@ -583,17 +583,17 @@ function initializeTrackingChart() {
                 intersect: false
             },
             onHover: function(event, activeElements) {
-                const chart = this.chart;
+                if (!this || !this.update) return;
                 if (activeElements.length > 0) {
                     const newHoveredIndex = activeElements[0].datasetIndex;
                     if (trackingHoveredDatasetIndex !== newHoveredIndex) {
                         trackingHoveredDatasetIndex = newHoveredIndex;
-                        chart.update('none');
+                        this.update('none');
                     }
                 } else {
                     if (trackingHoveredDatasetIndex !== -1) {
                         trackingHoveredDatasetIndex = -1;
-                        chart.update('none');
+                        this.update('none');
                     }
                 }
             }
@@ -837,8 +837,7 @@ function setupSearch() {
             if (query) {
                 performSearch();
             } else {
-
-                showPage(currentPage);
+                showPage(getCurrentPage() || 'dashboard');
             }
         }, 300);
     });
@@ -854,7 +853,7 @@ function setupSearch() {
             if (query) {
                 performSearch();
             } else {
-                showPage(currentPage);
+                showPage(getCurrentPage() || 'dashboard');
             }
         }
     });
@@ -946,7 +945,7 @@ function searchAllData(query) {
 
 function renderSearchResults(results, container) {
     const query = getSearchQuery();
-    const t = typeof window !== 'undefined' && typeof t === 'function' ? window.t : (key) => {
+    const t = (typeof window !== 'undefined' && typeof window.t === 'function') ? window.t : (key) => {
         if (typeof translations !== 'undefined' && typeof currentLanguage !== 'undefined') {
             return translations[currentLanguage] && translations[currentLanguage][key] ? translations[currentLanguage][key] : key;
         }
@@ -957,8 +956,8 @@ function renderSearchResults(results, container) {
         container.innerHTML = `
             <div class="search-results-content">
                 <div class="empty-state">
-                    <h3>${typeof t === 'function' ? t('noSearchResults') : 'Хайлтын үр дүн олдсонгүй'}</h3>
-                    <p>"${escapeHtml(query)}" ${typeof t === 'function' ? t('noSearchResultsText') : 'гэсэн утгаар хайлт хийсэн боловч үр дүн олдсонгүй.'}</p>
+                    <h3>${t('noSearchResults')}</h3>
+                    <p>"${escapeHtml(query)}" ${t('noSearchResultsText')}</p>
                 </div>
             </div>
         `;
@@ -1032,6 +1031,9 @@ function renderSearchResults(results, container) {
                             ${task.completed ? (currentLanguage === 'en' ? '✓ Completed' : '✓ Дууссан') : (currentLanguage === 'en' ? 'Active' : 'Идэвхтэй')}
                         </span>
                         <span class="date-info">${task.createdAt ? formatDate(task.createdAt) : ''}</span>
+                    </div>
+                    <div class="search-result-actions">
+                        <button class="btn-delete" onclick="deleteTaskItem(${task.id})">${currentLanguage === 'en' ? 'Delete' : 'Устгах'}</button>
                     </div>
                 </div>
             `;
@@ -1114,16 +1116,23 @@ function setupNavigation() {
             item.classList.add('active');
 
             const text = item.querySelector('span').textContent.trim();
-            if (text === 'Хяналтын Самбар') {
-                showPage('dashboard');
-            } else if (text === 'Хянах') {
-                showPage('tracking');
-            } else if (text === 'Төслүүд') {
-                showPage('projects');
-            } else if (text === 'Ажлын Түүх') {
-                showPage('workHistory');
-            } else if (text === 'Ирэх Хайрцаг') {
-                showPage('inbox');
+            const pageMap = {
+                'Хяналтын Самбар': 'dashboard',
+                'Dashboard': 'dashboard',
+                'Хянах': 'tracking',
+                'Tracking': 'tracking',
+                'Төслүүд': 'projects',
+                'Projects': 'projects',
+                'Устгасан': 'deleted',
+                'Completed': 'deleted',
+                'Ажлын Түүх': 'workHistory',
+                'Work History': 'workHistory',
+                'Ирэх Хайрцаг': 'inbox',
+                'Inbox': 'inbox'
+            };
+            const pageName = pageMap[text];
+            if (pageName) {
+                showPage(pageName);
             }
         });
     });
@@ -1152,15 +1161,16 @@ function showPage(pageName) {
     const pageTitle = document.getElementById('pageTitle');
 
     const pageTitles = {
-        'dashboard': 'Хяналтын Самбар',
-        'tracking': 'Хянах',
-        'projects': 'Төслүүд',
-        'workHistory': 'Ажлын Түүх',
-        'inbox': 'Ирэх Хайрцаг'
+        'dashboard': currentLanguage === 'en' ? 'Dashboard' : 'Хяналтын Самбар',
+        'tracking': currentLanguage === 'en' ? 'Tracking' : 'Хянах',
+        'projects': currentLanguage === 'en' ? 'Projects' : 'Төслүүд',
+        'deleted': currentLanguage === 'en' ? 'Completed' : 'Устгасан',
+        'workHistory': currentLanguage === 'en' ? 'Work History' : 'Ажлын Түүх',
+        'inbox': currentLanguage === 'en' ? 'Inbox' : 'Ирэх Хайрцаг'
     };
     
     if (pageTitle) {
-        pageTitle.textContent = pageTitles[pageName] || 'Хяналтын Самбар';
+        pageTitle.textContent = pageTitles[pageName] || (currentLanguage === 'en' ? 'Dashboard' : 'Хяналтын Самбар');
     }
     
     if (pageName === 'dashboard') {
@@ -1822,24 +1832,69 @@ function completeTask(id) {
 }
 
 function deleteTask(id) {
+    if (stateManager) {
+        stateManager.deleteProject(id);
+    }
 
-    if (confirm(currentLanguage === 'en' ? 'Are you sure you want to delete this task?' : 'Та энэ даалгаврыг устгахдаа итгэлтэй байна уу?')) {
+    saveTasks();
 
-        if (stateManager) {
-            stateManager.deleteProject(id);
-        }
-
-        saveTasks();
-
+    // Одоогийн хуудсыг шинэчлэх
+    const currentPage = getCurrentPage();
+    if (currentPage === 'dashboard') {
         renderProjects();
+    } else if (currentPage === 'projects') {
+        renderAllProjects();
+    }
 
-        if (currencyChart) {
+    if (currencyChart) {
+        try {
+            const period = document.getElementById('currencyFilter')?.value || 'week';
+            updateChartData(currencyChart, period);
+        } catch (error) {
+            console.error('График шинэчлэхэд алдаа:', error);
+        }
+    }
+}
+
+function deleteTaskItem(id) {
+    if (stateManager) {
+        stateManager.deleteTask(id);
+    }
+
+    saveTasks();
+
+    // Одоогийн хуудсыг шинэчлэх
+    const currentPage = getCurrentPage();
+    if (currentPage === 'dashboard') {
+        renderProjects();
+    } else if (currentPage === 'projects') {
+        renderAllProjects();
+    } else if (currentPage === 'tracking') {
+        if (trackingChart) {
             try {
-                const period = document.getElementById('currencyFilter')?.value || 'week';
-                updateChartData(currencyChart, period);
+                const period = document.getElementById('trackingChartFilter')?.value || 'week';
+                updateTrackingChartData(trackingChart, period);
             } catch (error) {
-                console.error('График шинэчлэхэд алдаа:', error);
+                console.error('Tracking график шинэчлэхэд алдаа:', error);
             }
+        }
+    }
+
+    // Хайлтын үр дүнг шинэчлэх
+    const searchResultsPage = document.getElementById('searchResultsPage');
+    if (searchResultsPage && searchResultsPage.classList.contains('active')) {
+        const query = getSearchQuery();
+        if (query) {
+            performSearch();
+        }
+    }
+
+    if (currencyChart) {
+        try {
+            const period = document.getElementById('currencyFilter')?.value || 'week';
+            updateChartData(currencyChart, period);
+        } catch (error) {
+            console.error('График шинэчлэхэд алдаа:', error);
         }
     }
 }

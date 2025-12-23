@@ -8,7 +8,12 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f5f6fa;
+    background-color: #f5f6fa;
+    background-image: url('9ec092d0a6dada6f6a2b9cfaaec06ccd.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: #333;
     overflow-x: hidden;
 }
@@ -153,7 +158,7 @@ body {
 
 
 .btn-add-task {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #4e5a2f 0%, #84544f 100%);
     color: white;
     border: none;
     padding: 16px 20px;
@@ -172,7 +177,7 @@ body {
 
 .btn-add-task:hover {
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.4);
 }
 
 .btn-add-task:active {
@@ -197,13 +202,20 @@ body {
     width: 45px;
     height: 45px;
     border-radius: 10px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
-    font-size: 16px;
     transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
 }
 
 .profile-avatar:hover {
@@ -227,7 +239,7 @@ body {
 
 
 .main-content {
-    background: #f5f6fa;
+    background: transparent;
     padding: 30px;
     overflow-y: auto;
     max-height: 100vh;
@@ -243,7 +255,7 @@ body {
 
 .header-left h2 {
     font-size: 28px;
-    color: #1a1d29;
+    color: #000000;
     margin-bottom: 5px;
 }
 
@@ -264,7 +276,9 @@ body {
     justify-content: center;
     width: 44px;
     height: 44px;
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     transition: all 0.3s;
@@ -306,7 +320,9 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 12px 20px;
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -371,7 +387,9 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 12px 20px;
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -410,14 +428,16 @@ body {
 }
 
 .search-box input::placeholder {
-    color: #8b8d97;
+    color: #323336;
 }
 
 .date-picker {
     display: flex;
     align-items: center;
     gap: 10px;
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 12px 20px;
     border-radius: 12px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -427,7 +447,9 @@ body {
 
 
 .welcome-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 40px;
     margin-bottom: 30px;
@@ -458,7 +480,7 @@ body {
 }
 
 .btn-learn-more {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
     color: white;
     border: none;
     padding: 12px 30px;
@@ -470,7 +492,7 @@ body {
 
 .btn-learn-more:hover {
     transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
 }
 
 .btn-learn-more:active {
@@ -526,7 +548,9 @@ body {
 
 
 .chart-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
@@ -573,21 +597,20 @@ body {
 }
 
 .summary-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: transparent;
     border-radius: 20px;
     padding: 30px;
-    color: white;
+    color: #1a1d29;
     text-align: center;
-    box-shadow: 0 2px 20px rgba(102, 126, 234, 0.3);
+    box-shadow: none;
     animation: zoomIn 0.7s ease-out;
     transition: transform 0.3s ease;
     cursor: pointer;
 }
 
 .summary-card:hover {
-    transform: scale(1.08);
-    box-shadow: 0 8px 40px rgba(102, 126, 234, 0.5);
-    animation: pulse 1s ease-in-out infinite;
+    transform: scale(1.05);
+    box-shadow: none;
 }
 
 .summary-card:active {
@@ -598,6 +621,18 @@ body {
     font-size: 32px;
     margin-bottom: 15px;
     opacity: 0.9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.summary-icon img {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
 }
 
 .summary-value {
@@ -621,7 +656,9 @@ body {
 }
 
 .progress-chart-card {
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
@@ -672,7 +709,9 @@ body {
 }
 
 .progress-detail-item {
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
@@ -918,7 +957,9 @@ body {
 
 
 .ongoing-projects {
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
@@ -1052,7 +1093,9 @@ body {
 }
 
 .sidebar-right {
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 30px 20px;
     overflow-y: auto;
     max-height: 100vh;
@@ -1092,18 +1135,21 @@ body {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 32px;
-    font-weight: 600;
+    background: transparent;
+    overflow: hidden;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
 }
 
 .progress-ring {
@@ -1204,7 +1250,7 @@ body {
 
 .view-all {
     font-size: 12px;
-    color: #667eea;
+    color: #1eb847;
     text-decoration: none;
     font-weight: 600;
 }
@@ -1235,7 +1281,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #433434 0%, #6bb3cb 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1471,7 +1517,9 @@ body {
 
 
 .tracking-content {
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
@@ -1560,7 +1608,9 @@ body {
 
 
 .projects-content {
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
@@ -1600,7 +1650,9 @@ body {
 
 
 .history-content {
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
@@ -1666,7 +1718,9 @@ body {
 
 
 .inbox-list {
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
@@ -1674,7 +1728,9 @@ body {
 
 
 .search-results-content {
-    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
@@ -1855,13 +1911,18 @@ body {
 
 
 body.dark-mode {
-    background: #0f1117;
+    background-color: #0f1117;
+    background-image: url('9ec092d0a6dada6f6a2b9cfaaec06ccd.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: #e0e0e0;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dark-mode .main-content {
-    background: #0f1117;
+    background: transparent;
     color: #e0e0e0;
 }
 
@@ -1875,7 +1936,9 @@ body.dark-mode {
 .dark-mode .history-content,
 .dark-mode .inbox-list,
 .dark-mode .search-results-content {
-    background: #1a1d29;
+    background: rgba(26, 29, 41, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     color: #e0e0e0;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
 }
@@ -1903,7 +1966,7 @@ body.dark-mode {
 }
 
 .dark-mode .header-left h2 {
-    color: #e0e0e0;
+    color: #ffffff;
 }
 
 .dark-mode .date-display {
@@ -2078,7 +2141,8 @@ body.dark-mode {
 }
 
 .dark-mode .summary-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: transparent;
+    color: #e0e0e0;
 }
 
 .dark-mode .progress-bar-fill,

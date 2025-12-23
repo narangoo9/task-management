@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/users";
+const JSON_URL = "db.json";
 
 const loginForm = document.getElementById("loginForm");
 const errorMessage = document.getElementById("errorMessage");
@@ -34,15 +34,16 @@ loginForm.addEventListener("submit", async (e) => {
     }
 
     try {
-        
-        const response = await fetch(API_URL);
+        // db.json файлаас өгөгдөл татах
+        const response = await fetch(JSON_URL);
         if (!response.ok) {
-            throw new Error("Сервертэй холбогдох боломжгүй");
+            throw new Error("JSON файл унших боломжгүй");
         }
 
-        const users = await response.json();
+        const data = await response.json();
+        const users = data.users || [];
         
-       
+        // Хэрэглэгчийг олох (username эсвэл email-ээр)
         const user = users.find(
             (u) => (u.username === username || u.email === username) && u.password === password
         );
@@ -50,11 +51,23 @@ loginForm.addEventListener("submit", async (e) => {
         if (user) {
             showSuccess(`Амжилттай нэвтэрлээ! Тавтай морил, ${user.username}!`);
             
+            // Амжилттай нэвтрэх анимейшн
+            const loginBox = document.querySelector('.login');
+            loginBox.style.animation = 'successPulse 0.5s ease';
+            
             setTimeout(() => {
+                // index.html руу шилжих
                 window.location.href = "index.html";
-            }, 1000);
+            }, 2000);
         } else {
             showError("Хэрэглэгчийн нэр эсвэл нууц үг буруу байна!");
+            
+            // Алдааны анимейшн
+            const loginBox = document.querySelector('.login');
+            loginBox.style.animation = 'errorShake 0.5s ease';
+            setTimeout(() => {
+                loginBox.style.animation = 'float 6s ease-in-out infinite, glowPulse 3s ease-in-out infinite';
+            }, 500);
         }
     } catch (error) {
         console.error("Алдаа:", error);
@@ -62,3 +75,25 @@ loginForm.addEventListener("submit", async (e) => {
     }
 });
 
+// Анимейшн нэмэх
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes successPulse {
+        0%, 100% {
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.3),
+                        0 0 100px rgba(0, 255, 255, 0.1);
+        }
+        50% {
+            box-shadow: 0 0 100px rgba(0, 255, 0, 0.6),
+                        0 0 200px rgba(0, 255, 0, 0.3);
+            transform: scale(1.05);
+        }
+    }
+    
+    @keyframes errorShake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-10px); }
+        75% { transform: translateX(10px); }
+    }
+`;
+document.head.appendChild(style);
