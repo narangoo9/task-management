@@ -1,0 +1,32 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Жишээ Даалгавар",
+      "description": "Энэ нь жишээ даалгавар юм",
+      "completed": false,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "Хяналтын Самбарын Дизайн",
+      "description": "Орчин үеийн хяналтын самбарын интерфейс үүсгэх",
+      "progress": 50,
+      "startDate": "09 1-р сар",
+      "endDate": "1 2-р сар",
+      "completed": false
+    },
+    {
+      "id": 2,
+      "title": "Апп UI UX Дизайн",
+      "description": "Хэрэглэгчийн интерфейс болон туршлагыг дизайн хийх",
+      "progress": 30,
+      "startDate": "15 1-р сар",
+      "endDate": "15 2-р сар",
+      "completed": false
+    }
+  ]
+}
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="mn">,
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Нэвтрэх</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <div class="logo">
+                <h1>Login</h1>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <input 
+                        type="text" 
+                        id="username" 
+                        placeholder="Имэйл" 
+                        required
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="Нууц үг" 
+                        required
+                    >
+                </div>
+                
+                <a href="index.html"></a>
+                <button type="submit" class="login-btn">Нэвтрэх</button>
+                
+                
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+                <div id="successMessage" class="success-message" style="display: none;"></div>
+            </form>
+            
+            <div class="footer-links">
+                <a href="#" class="forgot-password">Нууц үг мартсан?</a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="shinobi1.js"></script>
+</body>
+</html>
+
