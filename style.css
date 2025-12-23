@@ -405,6 +405,8 @@ body {
     font-size: 14px;
     width: 200px;
     color: #1a1d29;
+
+
 }
 
 .search-box input::placeholder {
@@ -1892,7 +1894,8 @@ body.dark-mode {
 }
 
 .dark-mode .search-box input {
-    color: #000000;
+    background-color: #1a1d29;
+    color:white;
 }
 
 .dark-mode .search-box input::placeholder {
