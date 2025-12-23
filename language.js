@@ -271,7 +271,7 @@ function updateAllTexts() {
     const toolsTitle = document.querySelector('.tools-section h3');
     if (toolsTitle) toolsTitle.textContent = t('tools');
     
-    // Backup buttons
+    
     const backupBtn = document.getElementById('backupBtn');
     if (backupBtn) {
         const icon = backupBtn.querySelector('i');

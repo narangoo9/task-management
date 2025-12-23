@@ -371,7 +371,7 @@ function initializeCurrencyChart() {
     }
 }
 
-// Tracking хуудсанд график эхлүүлэх функц
+
 function initializeTrackingChart() {
     const ctx = document.getElementById('trackingChart');
     if (!ctx) return;
@@ -382,7 +382,7 @@ function initializeTrackingChart() {
         
         let days = period === 'week' ? 7 : 30;
         
-        // Бүх төслүүдийн өгөгдөл (дууссан болсон хэсэг оруулахгүй)
+        
         const allProjects = getProjects().filter(p => !p.completed).slice(0, 3);
         const projectDataArrays = allProjects.map(project => {
             const dataArray = [];
@@ -635,7 +635,7 @@ function initializeTrackingChart() {
     }
 }
 
-// Tracking графикийн өгөгдөл шинэчлэх функц
+
 function updateTrackingChartData(chart, period) {
     if (!chart) {
         console.warn('Tracking график байхгүй байна');
@@ -729,7 +729,7 @@ function updateChartData(chart, period) {
         for (let i = days - 1; i >= 0; i--) {
             const date = new Date(now);
             date.setDate(date.getDate() - i);
-            const dateStr = date.toISOString().split('T')[0]; // YYYY-MM-DD формат
+            const dateStr = date.toISOString().split('T')[0]; 
 
             const historyEntry = progressHistory.find(h => h.date === dateStr);
             if (historyEntry) {
