@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html lang="mn">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Акацуки - Даалгавар Удирдлагын Хяналтын Самбар</title>
+   
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+   
+    <div class="dashboard-container">
+       
+        <aside class="sidebar-left">
+          
+            <div class="logo-section">
+                <div class="logo-icon">🥷🏻</div>
+                <h1 class="logo-text">Акацуки</h1>
+            </div>
+
+            
+            <div class="project-section">
+                <div class="project-dropdown">
+                    <span>Төсөл</span>
+                    <select id="projectSelect">
+                        <option>Нууц элс тосгон</option>
+                    </select>
+                </div>
+            </div>
+
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active">
+                    <i class="fas fa-th-large"></i>
+                    <span>Хяналтын Самбар</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-bullseye"></i>
+                    <span>Хянах</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Устгасан</span>
+                </a>
+            </nav>
+
+           
+            <div class="tools-section">
+                <h3>Хэрэгслүүд</h3>
+            </div>
+
+            
+            <button class="btn-add-task" id="addTaskBtn">
+                <i class="fas fa-plus"></i>
+                ШИНЭ ДААЛГАВАР НЭМЭХ
+            </button>
+
+            <div class="profile-section">
+                <div class="profile-info">
+                    <div class="profile-avatar">
+                        <img src="551041376_18068322914218211_3848198025903558973_n.jpg" alt="Profile">
+                    </div>
+                    <div class="profile-details">
+                        <div class="profile-name">Нарангоо</div>
+                        <div class="profile-role">Багийн Удирдагч</div>
+                    </div>
+                    
+                </div>
+            </div>
+        </aside>
+
+        
+        <main class="main-content">
+            
+            <header class="content-header">
+                <div class="header-left">
+                    <h2 id="pageTitle">Хяналтын Самбар</h2>
+                    <span class="date-display" id="currentDate"></span>
+                </div>
+                <div class="header-right">
+                    <div class="dark-mode-toggle" id="darkModeToggle" title="Dark Mode">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="language-selector">
+                        <i class="fas fa-globe"></i>
+                        <select id="languageSelect">
+                            <option value="mn">Монгол</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Даалгавар, төсөл хайх..." id="searchInput">
+                    </div>
+                    <div class="date-picker">
+                        <i class="fas fa-calendar"></i>
+                        <span id="headerDate"></span>
+                    </div>
+                </div>
+            </header>
+
+          
+            <div id="dashboardSections">
+            
+            <div class="welcome-card">
+                <div class="welcome-content">
+                    <h2>Task manager дээрээ тавтай морил</h2>
+                    <p>Энэ task нь таны өдөр тутамын амьдарлыг идэвхтэй болгож эрүүл амьдрахад тань тусална</p>
+                    
+                </div>
+                <div class="welcome-illustration">
+                    <div class="illustration-bg">
+                        <i class="fas fa-laptop"></i>
+                        <i class="fas fa-calendar-alt"></i>
+                        <i class="fas fa-clock"></i>
+                    </div>
+                </div>
+            </div>
+
+          
+            <div class="stats-section">
+                
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>График</h3>
+                        <select class="chart-filter" id="currencyFilter">
+                            <option value="week">Долоо хоног</option>
+                            <option value="month">Сар</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="currencyChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <img src="gif/giphy.gif" alt="Projects GIF">
+                        </div>
+                        <div class="summary-value">50%+</div>
+                        <div class="summary-label">Төслүүд</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon">
+                            <img src="gif/giphy (1).gif" alt="Tasks GIF">
+                        </div>
+                        <div class="summary-value">50%+</div>
+                        <div class="summary-label">Даалгаврууд</div>
+                    </div>
+                </div>
+            </div>
+
+            
+           
+            <div class="ongoing-projects">
+                <h3>Явж Байгаа Төслүүд</h3>
+                <div id="projectsContainer" class="projects-list">
+                   
+                </div>
+            </div>
+            </div>
+            
+            <div id="dashboardPage" class="page-content active">
+                
+            </div>
+
+           
+            <div id="trackingPage" class="page-content">
+                <div class="page-header">
+                    <h2>Хянах</h2>
+                    <p>Даалгавруудын явцыг хянах</p>
+                </div>
+                <div class="tracking-content">
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3>Хянах График</h3>
+                            <select class="chart-filter" id="trackingChartFilter">
+                                <option value="week">Долоо хоног</option>
+                                <option value="month">Сар</option>
+                            </select>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="trackingChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div id="projectsPage" class="page-content">
+                <div class="page-header">
+                    <h2>Төслүүд</h2>
+                    <p>Бүх төслүүдийг удирдах</p>
+                </div>
+                <div class="projects-content">
+                    <button class="btn-add-project" id="addProjectBtn">
+                        <i class="fas fa-plus"></i>
+                        Шинэ Төсөл Нэмэх
+                    </button>
+                    <div id="allProjectsContainer" class="projects-grid">
+                        
+                    </div>
+                </div>
+            </div>
+
+            
+            <div id="workHistoryPage" class="page-content">
+                <div class="page-header">
+                    <h2>Ажлын Түүх</h2>
+                    <p>Дууссан ажлуудын түүх</p>
+                </div>
+                <div class="history-content">
+                    <div class="history-filters">
+                        <select id="historyFilter" class="history-select">
+                            <option value="all">Бүх түүх</option>
+                            <option value="today">Өнөөдөр</option>
+                            <option value="week">Энэ долоо хоног</option>
+                            <option value="month">Энэ сар</option>
+                        </select>
+                    </div>
+                    <div id="historyContainer" class="history-list">
+                        
+                    </div>
+                </div>
+            </div>
+
+           
+            <div id="inboxPage" class="page-content">
+                <div class="page-header">
+                    <h2>Ирэх Хайрцаг</h2>
+                    <p>Ирсэн мэссэж, мэдэгдлүүд</p>
+                </div>
+                <div id="inboxContainer" class="inbox-list">
+                   
+                </div>
+            </div>
+        </main>
+
+        
+        <aside class="sidebar-right">
+            
+            <div class="right-profile-section">
+                <h3>Профайл</h3>
+                <div class="profile-completion">
+                    
+                </div>
+                <div class="profile-circle">
+                    <div class="profile-image">
+                        <img src="1.jpg" alt="Profile">
+                    </div>
+                    <svg class="progress-ring" width="120" height="120">
+                        <circle class="progress-ring-circle" cx="60" cy="60" r="54" stroke="#e74c3c" stroke-width="8" fill="transparent" stroke-dasharray="339.292" stroke-dashoffset="101.788"></circle>
+                    </svg>
+                </div>
+                
+                
+            </div>
+
+            
+            <div class="current-projects-section">
+                <h3>Одоогийн Төслүүд</h3>
+                <div class="project-item">
+                    <div class="project-info">
+                        <div class="project-name">Game of thrones ном уншиж дуусгах</div>
+                        <div class="project-type">Got</div>
+                    </div>
+                    <div class="project-progress-bar">
+                        <div class="project-progress-fill" style="width: 50%"></div>
+                    </div>
+                    <div class="project-percent">50%</div>
+                </div>
+                <div class="project-item">
+                    <div class="project-info">
+                        <div class="project-name">GTA 5 хөгжүүлэлт дээр ажиллах</div>
+                        <div class="project-type">scotland</div>
+                    </div>
+                    <div class="project-progress-bar">
+                        <div class="project-progress-fill" style="width: 50%"></div>
+                    </div>
+                    <div class="project-percent">50%</div>
+                </div>
+            </div>
+
+            <div class="messages-section">
+                <div class="messages-header">
+                    <h3>Заавал санаж явах зүйлс</h3>
+                    
+                </div>
+                <div class="messages-list">
+                    <div class="message-item">
+                        <div class="message-avatar">💪</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">Фитнесс</span>
+                                
+                            </div>
+                            <p class="message-text">Тэсвэр тэвчээр</p>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-avatar">😊</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">Үргэлж инээмсэглэх</span>
+                                
+                            </div>
+                            <p class="message-text">Аз жаргалтай байна</p>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-avatar">🥗</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">Эрүүл хоололт</span>
+                                
+                            </div>
+                            <p class="message-text">Ирээдүйдээ оруулах хөрөнгө оруулалт</p>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-avatar">🏃‍♂️</div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-name">Эрүүл дасгал хөдөлгөөн</span>
+                                
+                            </div>
+                            <p class="message-text">Эрүүл биед саруул ухаан</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Шинэ Даалгавар Нэмэх</h2>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="taskTitle">Даалгаврын Гарчиг</label>
+                    <input type="text" id="taskTitle" placeholder="Даалгаврын гарчиг оруулна уу" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskDescription">Тайлбар</label>
+                    <textarea id="taskDescription" placeholder="Даалгаврын тайлбар оруулна уу" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Даалгавар Нэмэх</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Шинэ Төсөл Нэмэх</h2>
+            <form id="projectForm">
+                <div class="form-group">
+                    <label for="projectTitle">Төслийн Гарчиг</label>
+                    <input type="text" id="projectTitle" placeholder="Төслийн гарчиг оруулна уу" required>
+                </div>
+                <div class="form-group">
+                    <label for="projectDescription">Тайлбар</label>
+                    <textarea id="projectDescription" placeholder="Төслийн тайлбар оруулна уу" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="projectStartDate">Эхлэх Огноо</label>
+                    <input type="date" id="projectStartDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="projectEndDate">Дуусах Огноо</label>
+                    <input type="date" id="projectEndDate" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Төсөл Нэмэх</button>
+            </form>
+        </div>
+    </div>
+
+    
+    <script src="state-manager.js"></script>
+    <script src="language.js"></script>
+    <script src="dark-mode.js"></script>
+    <script src="shinobi.js"></script>
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const languageSelect = document.getElementById('languageSelect');
+                if (languageSelect) {
+                   
+                    languageSelect.addEventListener('change', (e) => {
+                        if (typeof changeLanguage === 'function') {
+                            changeLanguage(e.target.value);
+                        }
+                    });
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
