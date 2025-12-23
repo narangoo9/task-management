@@ -34,7 +34,7 @@ loginForm.addEventListener("submit", async (e) => {
     }
 
     try {
-        
+        // db.json файлаас өгөгдөл татах
         const response = await fetch(JSON_URL);
         if (!response.ok) {
             throw new Error("JSON файл унших боломжгүй");
@@ -43,7 +43,7 @@ loginForm.addEventListener("submit", async (e) => {
         const data = await response.json();
         const users = data.users || [];
         
-        
+        // Хэрэглэгчийг олох (username эсвэл email-ээр)
         const user = users.find(
             (u) => (u.username === username || u.email === username) && u.password === password
         );
@@ -51,18 +51,18 @@ loginForm.addEventListener("submit", async (e) => {
         if (user) {
             showSuccess(`Амжилттай нэвтэрлээ! Тавтай морил, ${user.username}!`);
             
-           
+            // Амжилттай нэвтрэх анимейшн
             const loginBox = document.querySelector('.login');
             loginBox.style.animation = 'successPulse 0.5s ease';
             
             setTimeout(() => {
-                
+                // index.html руу шилжих
                 window.location.href = "index.html";
             }, 2000);
         } else {
             showError("Хэрэглэгчийн нэр эсвэл нууц үг буруу байна!");
             
-            
+            // Алдааны анимейшн
             const loginBox = document.querySelector('.login');
             loginBox.style.animation = 'errorShake 0.5s ease';
             setTimeout(() => {
@@ -75,7 +75,7 @@ loginForm.addEventListener("submit", async (e) => {
     }
 });
 
-
+// Анимейшн нэмэх
 const style = document.createElement('style');
 style.textContent = `
     @keyframes successPulse {

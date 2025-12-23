@@ -158,15 +158,18 @@
             </div>
 
             
-           
+            <!-- Ongoing projects -->
             <div class="ongoing-projects">
                 <h3>Явж Байгаа Төслүүд</h3>
                 <div id="projectsContainer" class="projects-list">
-                   
+                    <!-- Projects will be loaded here -->
                 </div>
             </div>
             </div>
-            
+            <!-- End Dashboard Sections -->
+
+            <!-- Page Content Areas - SPA хуудаснууд -->
+            <!-- Dashboard Page (default) -->
             <div id="dashboardPage" class="page-content active">
                 
             </div>
@@ -391,12 +394,12 @@
     <script src="dark-mode.js"></script>
     <script src="shinobi.js"></script>
     <script>
-        
+        // Language selector event listener (runs after language.js loads)
         document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 const languageSelect = document.getElementById('languageSelect');
                 if (languageSelect) {
-                   
+                    // Change language on select
                     languageSelect.addEventListener('change', (e) => {
                         if (typeof changeLanguage === 'function') {
                             changeLanguage(e.target.value);
